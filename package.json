@@ -1,0 +1,75 @@
+{
+  "name": "sample-pilet-service",
+  "version": "1.2.2",
+  "description": "Piral: Sample pilet feed service.",
+  "main": "dist",
+  "typings": "dist",
+  "homepage": "https://piral.io",
+  "scripts": {
+    "test:unit": "jest src",
+    "test:watch": "npm run test:unit -- --watch",
+    "test": "npm run lint && npm run test:unit",
+    "start": "node dist/cli.js",
+    "debug": "node --inspect index.js",
+    "watch": "node index.js",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "prettier": "prettier --config prettier.config.js --write 'src/**/*.ts'",
+    "build": "tsc --project tsconfig.json",
+    "serve": "pm2-runtime dist/index.js"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "bin": {
+    "sample-pilet-service": "./dist/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:smapiot/sample-pilet-service.git"
+  },
+  "keywords": [
+    "piral",
+    "pilet",
+    "feed",
+    "service",
+    "sample"
+  ],
+  "author": {
+    "name": "smapiot",
+    "url": "https://smapiot.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server-express": "^2.6.9",
+    "connect-busboy": "^0.0.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "graphql": "^14.4.2",
+    "graphql-type-json": "^0.3.0",
+    "mime-types": "^2.1.24",
+    "pm2": "^4.2.3",
+    "response-time": "^2.3.2",
+    "tar": "^6.0.1"
+  },
+  "devDependencies": {
+    "@types/connect-busboy": "^0.0.2",
+    "@types/cors": "^2.8.5",
+    "@types/express": "^4.17.3",
+    "@types/graphql-type-json": "^0.3.0",
+    "@types/jest": "^25.1.4",
+    "@types/mime-types": "^2.1.0",
+    "@types/node": "^11.13.17",
+    "@types/response-time": "^2.3.3",
+    "@types/tar": "^4.0.3",
+    "dotenv": "^8.2.0",
+    "jest": "^25.2.4",
+    "jest-cli": "^25.2.4",
+    "prettier": "^1.19.1",
+    "ts-jest": "^25.2.1",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.7.5"
+  }
+}
