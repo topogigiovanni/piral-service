@@ -64,3 +64,5 @@ typings/
 zeisslets
 .idea
 yarn.lock
+
+static

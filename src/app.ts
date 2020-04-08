@@ -5,8 +5,17 @@ import * as busboy from 'connect-busboy';
 import { defaultKeys } from './auth';
 import { withGql } from './resolvers';
 import { checkAuth } from './middleware';
-import { getFiles, publishPilet, getLatestPilets } from './endpoints';
-import { defaultPiletPath, defaultFilePath, defaultPort, defaultProtocol } from './constants';
+import { publishPilet, getLatestPilets } from './endpoints';
+import { defaultMongoSettings, defaultPiletPath, defaultFilePath, defaultPort, defaultProtocol } from './constants';
+import { start as startMongo } from  './db/mongodb';
+
+process.on('uncaughtException', (err: any) => {
+  console.log('uncaughtException', err);
+});
+
+if (defaultMongoSettings.active) {
+  startMongo();
+}
 
 function getUrl(port: number) {
   const protocol = process.env.HTTP_X_FORWARDED_PROTO || defaultProtocol;
@@ -51,11 +60,11 @@ export function runApp({
     }),
   );
 
+  app.use('/static', express.static('static'));
+
   app.get(piletPath, getLatestPilets());
 
   app.post(piletPath, checkAuth(apiKeys, 'publish-pilet'), publishPilet(rootUrl));
-
-  app.get(filePath, getFiles());
 
   return withGql(app).listen(port, () => {
     console.info(`Pilet feed fervice started on port ${port}.`);

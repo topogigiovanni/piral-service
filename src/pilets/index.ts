@@ -1,5 +1,5 @@
 import { getPilets, setPilet } from '../db';
-import { getPiletDefinition } from '../helpers';
+import { getPiletDefinition, storageFile } from '../helpers';
 import { PiletMetadata } from '../types';
 
 export async function latestPilets() {
@@ -16,5 +16,9 @@ export async function latestPilets() {
 
 export async function storePilet(file: NodeJS.ReadableStream, rootUrl: string) {
   const meta = await getPiletDefinition(file, rootUrl);
+  debugger;
+  const storageResult = await storageFile(meta.files, meta.meta.basePath);
+  console.log('storageResult', storageResult);
+
   await setPilet(meta);
 }

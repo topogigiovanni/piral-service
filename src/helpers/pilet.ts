@@ -1,4 +1,4 @@
-import { dirname, basename } from 'path';
+import { dirname } from 'path';
 import { formatAuthor } from './author';
 import { untar } from './untar';
 import { computeHash } from './hash';
@@ -42,6 +42,8 @@ export function extractPiletMetadata(
   const name = data.name;
   const version = data.preview ? `${data.version}-pre.${iter++}` : data.version;
   const [, requireRef] = extractRequireRef.exec(main || '') || [] as const;
+  const basePath = `/static/files/${name}/${version}`;
+  
   return {
     name,
     version,
@@ -50,7 +52,8 @@ export function extractPiletMetadata(
     custom: data.custom,
     author: formatAuthor(data.author),
     hash: computeHash(main),
-    link: `${rootUrl}/files/${name}/${version}/${file}`,
+    link: `${rootUrl}${basePath}/${file}`,
+    basePath,
     license: {
       type: data.license || 'ISC',
       text: getContent(`${packageRoot}LICENSE`, files) || '',
@@ -60,12 +63,13 @@ export function extractPiletMetadata(
 
 export function getPiletDefinition(stream: NodeJS.ReadableStream, rootUrl: string): Promise<Pilet> {
   return untar(stream).then(files => {
+    debugger;
     const data = getPackageJson(files);
     const path = getPiletMainPath(data, files);
     const root = dirname(path);
-    const file = basename(path);
+    // const file = basename(path);
     const main = getContent(path, files);
-    const meta = extractPiletMetadata(data, main, file, files, rootUrl);
+    const meta = extractPiletMetadata(data, main, path, files, rootUrl);
     return {
       meta,
       root,
