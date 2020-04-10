@@ -1,11 +1,10 @@
 import { Schema, Document, model } from 'mongoose';
-import { PiletMetadata, PackageFiles } from '../../types';
+import { PiletMetadata } from '../../types';
 
 export interface IPilet extends Document {
   name: string;
   meta: PiletMetadata;
   root: string;
-  files: PackageFiles;
 }
 
 const PiletsSchema = new Schema({
@@ -17,9 +16,6 @@ const PiletsSchema = new Schema({
   },
   root: {
     type: String
-  },
-  files: {
-    type: Object
   }
 });
 

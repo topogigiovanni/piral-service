@@ -8,7 +8,7 @@ class Pilet implements IPilet {
   name?: string;
   meta: PiletMetadata;
   root: string;
-  files: PackageFiles;
+  files?: PackageFiles;
   constructor(pilet: any) {
     this.name = pilet.name;
     this.meta = pilet.meta;
@@ -68,7 +68,7 @@ export async function setPilet(pilet: Pilet) {
   if (usingMongo) {
     const result =  await setMongoPilet(pilet);
     console.log(result);
-    // debugger;
+    debugger;
   }
 
   const meta = pilet.meta;
@@ -76,7 +76,7 @@ export async function setPilet(pilet: Pilet) {
   piletData[meta.name] = {
     ...current,
     [meta.version]: pilet,
-  };  
+  };
 }
 
 async function setMongoPilet(pilet: Pilet) {

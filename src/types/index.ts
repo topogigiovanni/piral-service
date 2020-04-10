@@ -21,7 +21,7 @@ export interface Pilet {
   name?: string;
   meta: PiletMetadata;
   root: string;
-  files: PackageFiles
+  files?: PackageFiles
 }
 
 export interface PackageFiles {
