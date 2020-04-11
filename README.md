@@ -1,8 +1,14 @@
 # TODO LIST
 
 [ ] - remover files da modelagem do pilet
-[ ] - implementar upload para S3 e cloudfront
+
+[ ] - implementar uso do cloud front
+
+[x] - implementar upload para S3
+
 [ ] - permitir gerenciamento de chaves de api dinamicas (usar mongo ou redis)
+
+[ ] - implementar live-reload
 
 --------------------------------------------
 

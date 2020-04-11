@@ -23,7 +23,7 @@ const providers: Record<string, Function> = {
 	local: localProvider
 };
 
-export async function storageFile(files: PackageFiles, basePath: string) {
+export async function storeFile(files: PackageFiles, basePath: string) {
   const providersList: Array<string> = storage.providers;
 
   providersList.forEach((name: string) => {

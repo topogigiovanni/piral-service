@@ -68,7 +68,7 @@ export async function setPilet(pilet: Pilet) {
   if (usingMongo) {
     const result =  await setMongoPilet(pilet);
     console.log(result);
-    debugger;
+    // debugger;
   }
 
   const meta = pilet.meta;
@@ -80,7 +80,6 @@ export async function setPilet(pilet: Pilet) {
 }
 
 async function setMongoPilet(pilet: Pilet) {
-  // debugger;
   const meta = pilet.meta;
 
   const doc = await PiletModel.findOneAndUpdate({name: meta.name}, pilet, {

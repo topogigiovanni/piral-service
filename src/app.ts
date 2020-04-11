@@ -17,7 +17,8 @@ if (defaultMongoSettings.active) {
   startMongo();
 }
 
-function getUrl(port: number) {
+export function getBaseUrl() {
+  const port = defaultPort;
   const protocol = process.env.HTTP_X_FORWARDED_PROTO || defaultProtocol;
   const host = process.env.WEBSITE_HOSTNAME || `localhost:${port}`;
   return `${protocol}://${host}`;
@@ -36,7 +37,7 @@ export function runApp({
   piletPath = defaultPiletPath,
   port = defaultPort,
   apiKeys = defaultKeys,
-  rootUrl = getUrl(port),
+  rootUrl = getBaseUrl(),
 }: AppOptions = {}) {
   const app = express();
 
