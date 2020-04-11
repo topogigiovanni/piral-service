@@ -60,6 +60,7 @@ typings/
 
 # dotenv environment variables file
 .env
+.env.*
 .DS_Store
 zeisslets
 .idea
