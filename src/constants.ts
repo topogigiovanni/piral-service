@@ -1,6 +1,5 @@
 import * as dotenv from 'dotenv';
 
-// production
 dotenv.config();
 
 export const nodeEnv = process.env.NODE_ENV || 'development';
@@ -16,7 +15,7 @@ export const defaultPort = +(ENV.PORT || 9000);
 export const defaultPiletPath = `/api/v1/pilet`;
 export const defaultFilePath = '/static/files(/@:org)?/:name/:version/:file?';
 export const defaultMongoSettings = {
-	active: ENV.MONGO_ACTIVE || true,
+	active: ENV.MONGO_ACTIVE || false,
 	host: ENV.MONGO_HOST || 'mongodb://localhost/piral-server',
 	port: ENV.MONGO_PORT || '27017',
 };
@@ -32,6 +31,6 @@ export const storage = {
   }  
 };
 export const defaultCdn = {
-  active: Boolean(ENV.CDN_ACTIVE || true),
+  active: Boolean(ENV.CDN_ACTIVE || false),
   url: ENV.CDN_URL || 'https://dkrfjfbr3di33.cloudfront.net'
 };
