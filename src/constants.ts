@@ -28,6 +28,7 @@ export const storage = {
     accessKeyId: ENV.S3_USER_KEY,
     secretAccessKey: ENV.S3_USER_SECRET,
     bucket: ENV.S3_BUCKET_NAME,
+    acl: ENV.S3_ACL || null //'public-read'
   }  
 };
 export const defaultCdn = {

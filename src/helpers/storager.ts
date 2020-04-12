@@ -23,12 +23,13 @@ const awsProvider = async (files: PackageFiles, basePath: string) => {
       Body: files[fileName],
       ContentDisposition: 'inline',
       ContentType: mimeTypes.lookup(fileName) as string,
-      ACL: 'public-read'
+      ACL: storage.awsSettings.acl
     };
     s3bucket.upload(params, function(err: any, data: any) {
       if (err) {
         console.log('error in callback');
         console.log(err);
+        return;
       }
       console.log('success');
       console.log(data);
