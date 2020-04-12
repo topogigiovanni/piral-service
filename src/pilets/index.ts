@@ -21,7 +21,7 @@ export async function latestPilets() {
     prev[curr.meta.name] = piletHandler(curr.meta);
     return prev;
   }, {} as Record<string, PiletMetadata>);
-  return Object.keys(unique).map(name => unique[name]);
+  return Object.keys(unique).map((name) => unique[name]);
 }
 
 export async function storePilet(file: NodeJS.ReadableStream, rootUrl: string) {

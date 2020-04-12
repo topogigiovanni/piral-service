@@ -29,7 +29,7 @@ function getPiletMainPath(data: PackageData, files: PackageFiles) {
     'index.js',
     'dist/index.js',
   ];
-  return paths.map(filePath => `${packageRoot}${filePath}`).filter(filePath => !!files[filePath])[0];
+  return paths.map((filePath) => `${packageRoot}${filePath}`).filter((filePath) => !!files[filePath])[0];
 }
 
 export function extractPiletMetadata(
@@ -62,7 +62,7 @@ export function extractPiletMetadata(
 }
 
 export function getPiletDefinition(stream: NodeJS.ReadableStream, rootUrl: string): Promise<Pilet> {
-  return untar(stream).then(files => {
+  return untar(stream).then((files) => {
     debugger;
     const data = getPackageJson(files);
     const path = getPiletMainPath(data, files);

@@ -12,9 +12,7 @@ export const getFiles = (): RequestHandler => async (req, res) => {
   if (!pilet) {
     res.status(404).send('Pilet not found!');
   } else if (file) {
-    const path = join(pilet.root, file)
-      .split(sep)
-      .join('/');
+    const path = join(pilet.root, file).split(sep).join('/');
     const content = Buffer.from(pilet.files[path]);
 
     if (content) {
@@ -30,8 +28,8 @@ export const getFiles = (): RequestHandler => async (req, res) => {
     }
   } else {
     const files = Object.keys(pilet.files)
-      .map(m => relative(pilet.root, m))
-      .filter(m => m.indexOf(sep) === -1);
+      .map((m) => relative(pilet.root, m))
+      .filter((m) => m.indexOf(sep) === -1);
 
     res.status(200).json({
       items: files,
@@ -59,7 +57,7 @@ export const publishPilet = (rootUrl: string): RequestHandler => (req, res) => {
             success: true,
           }),
         )
-        .catch(err =>
+        .catch((err) =>
           res.status(400).json({
             success: false,
             message: err.message,

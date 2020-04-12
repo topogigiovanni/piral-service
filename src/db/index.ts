@@ -46,8 +46,8 @@ export async function getPilets(): Promise<Array<Pilet>> {
 
   const data = await getPiletData();
 
-  Object.keys(data).forEach(name =>
-    Object.keys(data[name]).forEach(version => {
+  Object.keys(data).forEach((name) =>
+    Object.keys(data[name]).forEach((version) => {
       const pilet = data[name][version];
       pilets.push(pilet);
     }),

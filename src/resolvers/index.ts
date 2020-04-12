@@ -39,7 +39,7 @@ const resolvers: IResolvers = {
   Query: {
     async pilets(_parent: any, _args: any, _context: any) {
       const pilets = await latestPilets();
-      return pilets.map(p => ({
+      return pilets.map((p) => ({
         name: p.name,
         description: p.description,
         version: p.version,
@@ -52,7 +52,7 @@ const resolvers: IResolvers = {
     async piletLicense(_parent: any, args: any, _context: any) {
       const { pilet: id } = args;
       const pilets = await latestPilets();
-      const [pilet] = pilets.filter(m => m.name === id);
+      const [pilet] = pilets.filter((m) => m.name === id);
 
       if (pilet) {
         return {
