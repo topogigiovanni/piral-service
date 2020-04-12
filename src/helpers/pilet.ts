@@ -41,9 +41,9 @@ export function extractPiletMetadata(
 ): PiletMetadata {
   const name = data.name;
   const version = data.preview ? `${data.version}-pre.${iter++}` : data.version;
-  const [, requireRef] = extractRequireRef.exec(main || '') || [] as const;
+  const [, requireRef] = extractRequireRef.exec(main || '') || ([] as const);
   const basePath = `/static/files/${name}/${version}`;
-  
+
   return {
     name,
     version,

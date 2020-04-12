@@ -7,7 +7,7 @@ import { withGql } from './resolvers';
 import { checkAuth } from './middleware';
 import { publishPilet, getLatestPilets } from './endpoints';
 import { defaultMongoSettings, defaultPiletPath, defaultFilePath, defaultPort, defaultProtocol } from './constants';
-import { start as startMongo } from  './db/mongodb';
+import { start as startMongo } from './db/mongodb';
 
 process.on('uncaughtException', (err: any) => {
   console.log('uncaughtException', err);

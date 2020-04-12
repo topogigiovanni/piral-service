@@ -17,13 +17,10 @@ function piletHandler(pilet: PiletMetadata) {
 
 export async function latestPilets() {
   const pilets = await getPilets();
-  const unique = pilets.reduce(
-    (prev, curr) => {
-      prev[curr.meta.name] = piletHandler(curr.meta);
-      return prev;
-    },
-    {} as Record<string, PiletMetadata>,
-  );
+  const unique = pilets.reduce((prev, curr) => {
+    prev[curr.meta.name] = piletHandler(curr.meta);
+    return prev;
+  }, {} as Record<string, PiletMetadata>);
   return Object.keys(unique).map(name => unique[name]);
 }
 

@@ -9,14 +9,14 @@ export interface IPilet extends Document {
 
 const PiletsSchema = new Schema({
   name: {
-  	type: String
+    type: String,
   },
   meta: {
-    type: Object
+    type: Object,
   },
   root: {
-    type: String
-  }
+    type: String,
+  },
 });
 
 export default model<IPilet>('Pilet', PiletsSchema);

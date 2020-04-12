@@ -20,7 +20,7 @@ class Pilet implements IPilet {
 const piletData: Record<string, Record<string, Pilet>> = {};
 let piletDataLoaded = false;
 
-async function getPiletData() : Promise<Record<string, Record<string, Pilet>>> {
+async function getPiletData(): Promise<Record<string, Record<string, Pilet>>> {
   if (!piletDataLoaded && usingMongo) {
     const piletLIst = await PiletModel.find();
     if (piletLIst) {
@@ -32,7 +32,7 @@ async function getPiletData() : Promise<Record<string, Record<string, Pilet>>> {
         const current = piletData[p.name] || {};
         piletData[p.name] = {
           ...current,
-          [p.meta.version]: new Pilet(p)
+          [p.meta.version]: new Pilet(p),
         };
       });
     }
@@ -66,7 +66,7 @@ export async function getPilet(name: string, version: string): Promise<Pilet | u
 
 export async function setPilet(pilet: Pilet) {
   if (usingMongo) {
-    const result =  await setMongoPilet(pilet);
+    const result = await setMongoPilet(pilet);
     console.log(result);
     // debugger;
   }
@@ -82,9 +82,9 @@ export async function setPilet(pilet: Pilet) {
 async function setMongoPilet(pilet: Pilet) {
   const meta = pilet.meta;
 
-  const doc = await PiletModel.findOneAndUpdate({name: meta.name}, pilet, {
+  const doc = await PiletModel.findOneAndUpdate({ name: meta.name }, pilet, {
     new: true,
-    upsert: true // Make this update into an upsert
+    upsert: true, // Make this update into an upsert
   });
 
   return doc;

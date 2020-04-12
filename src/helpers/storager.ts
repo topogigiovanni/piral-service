@@ -16,14 +16,14 @@ const awsProvider = async (files: PackageFiles, basePath: string) => {
 
   asyncForEach(Object.keys(files), async (fileName: string) => {
     console.log('lookup', mimeTypes.lookup(fileName));
-    const filePath = `${basePath}/${fileName}`
+    const filePath = `${basePath}/${fileName}`;
     const params = {
       Bucket: storage.awsSettings.bucket,
       Key: filePath,
       Body: files[fileName],
       ContentDisposition: 'inline',
       ContentType: mimeTypes.lookup(fileName) as string,
-      ACL: storage.awsSettings.acl
+      ACL: storage.awsSettings.acl,
     };
     s3bucket.upload(params, (err: any, data: any) => {
       if (err) {
@@ -39,25 +39,25 @@ const localProvider = async (files: PackageFiles, basePath: string) => {
   basePath = basePath.replace('/', '');
 
   asyncForEach(Object.keys(files), async (fileName: string) => {
-    const filePath = `${basePath}/${fileName}`
+    const filePath = `${basePath}/${fileName}`;
     console.log('filePath', filePath);
     mkdirp.sync(dirname(filePath));
     writeFileSync(filePath, files[fileName]);
   });
-};	
+};
 
 const providers: Record<string, Function> = {
-	local: localProvider,
-  aws: awsProvider
+  local: localProvider,
+  aws: awsProvider,
 };
 
 export async function storeFile(files: PackageFiles, basePath: string) {
   const providersList: Array<string> = storage.providers;
 
   providersList.forEach((name: string) => {
-  	const invoker = providers[name];
-  	if (invoker) {
-  		invoker(files, basePath);
-  	}
+    const invoker = providers[name];
+    if (invoker) {
+      invoker(files, basePath);
+    }
   });
 }
