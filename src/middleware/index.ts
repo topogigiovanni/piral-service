@@ -1,14 +1,16 @@
 import { RequestHandler } from 'express';
+import { getKeys } from '../auth';
 
 const authHeaderExtract = /^basic\s+([a-fA-F0-9]+)$/i;
 
-function checkKey(authHeader: string, keys: Array<string>, scopes: Array<string>) {
+async function checkKey(authHeader: string, scopes: Array<string>) {
+  const keys = await getKeys();
   const result = authHeaderExtract.exec(authHeader);
   return result && keys.includes(result[1]);
 }
 
-export const checkAuth = (keys: Array<string>, ...scopes: Array<string>): RequestHandler => async (req, res, next) => {
-  const authorized = await checkKey(req.headers.authorization, keys, scopes);
+export const checkAuth = (...scopes: Array<string>): RequestHandler => async (req, res, next) => {
+  const authorized = await checkKey(req.headers.authorization, scopes);
 
   if (!authorized) {
     res.status(401).json({

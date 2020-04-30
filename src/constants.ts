@@ -32,3 +32,6 @@ export const defaultCdn = {
   active: Boolean(ENV.CDN_ACTIVE || false),
   url: ENV.CDN_URL || 'https://dkrfjfbr3di33.cloudfront.net',
 };
+export const authKeys = {
+  provider: ENV.AUTH_PROVIDER || 'local' // mongo, null/local, env
+};

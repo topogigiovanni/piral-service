@@ -1,3 +1,7 @@
+import { authKeys } from '../constants';
+import { AuthKey } from '../types';
+import AuthKeyModel, { IAuthKey } from '../db/mongodb/authKey';
+
 // generated with:
 // crypto.createHash('sha256').update(Math.random().toString()).digest().toString('hex')
 const standardKeys = [
@@ -8,12 +12,60 @@ const standardKeys = [
   'ad647bdc23b7437b8fa8f27c3e2d3f70fbb493c53e9160e07d37a98df333b188',
 ];
 
-function getKeys(envKeys: string) {
-  if (envKeys) {
-    return envKeys.split(',');
+let cachedKeys: Array<string> | undefined;
+
+export async function getKeys() {
+  const { provider } = authKeys;
+
+  // if (cachedKeys) {
+  // 	return cachedKeys;
+  // }
+
+  if (provider === 'env' && process.env.PILET_API_KEYS) {
+    cachedKeys = (process.env.PILET_API_KEYS || '').split(',');
+    return cachedKeys;
   }
 
-  return standardKeys;
+  if (provider === 'mongo') {
+    const keys = await AuthKeyModel.find().select({id: 1}).exec();
+    cachedKeys = keys.map((k: IAuthKey) => k.id);
+    console.log('cachedKeys', cachedKeys);
+
+    return cachedKeys;
+  }
+
+  cachedKeys = standardKeys;
+  console.log('cachedKeys', cachedKeys);
+
+  return cachedKeys;
 }
 
-export const defaultKeys = getKeys(process.env.PILET_API_KEYS);
+export async function saveKey(authKey: AuthKey) {
+  const { provider } = authKeys;
+
+  cachedKeys = await getKeys();
+
+  if (provider !== 'mongo') {
+    cachedKeys.push(authKey.id);
+
+    return {
+      model: authKey
+    }
+  }
+
+  try {
+    const key = new AuthKeyModel(authKey);
+    const model = await key.save();
+
+    // console.log({key, model});
+    cachedKeys.push(model._id);
+
+    return {
+      model: model
+    };
+  } catch(err) {
+    return {
+      error: err
+    };
+  }
+}

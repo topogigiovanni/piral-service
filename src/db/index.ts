@@ -1,6 +1,6 @@
 import { Pilet as IPilet, PackageFiles, PiletMetadata } from '../types';
 import { defaultMongoSettings } from '../constants';
-import PiletModel from './mongodb/model';
+import PiletModel from './mongodb/pilet';
 
 const usingMongo = defaultMongoSettings.active;
 

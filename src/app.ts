@@ -2,10 +2,9 @@ import * as express from 'express';
 import * as responseTime from 'response-time';
 import * as cors from 'cors';
 import * as busboy from 'connect-busboy';
-import { defaultKeys } from './auth';
 import { withGql } from './resolvers';
 import { checkAuth } from './middleware';
-import { publishPilet, getLatestPilets } from './endpoints';
+import { publishPilet, getLatestPilets, saveAuthKey } from './endpoints';
 import { defaultMongoSettings, defaultPiletPath, defaultFilePath, defaultPort, defaultProtocol } from './constants';
 import { start as startMongo } from './db/mongodb';
 
@@ -28,7 +27,6 @@ export interface AppOptions {
   piletPath?: string;
   filePath?: string;
   rootUrl?: string;
-  apiKeys?: Array<string>;
   port?: number;
 }
 
@@ -36,7 +34,6 @@ export function runApp({
   filePath = defaultFilePath,
   piletPath = defaultPiletPath,
   port = defaultPort,
-  apiKeys = defaultKeys,
   rootUrl = getBaseUrl(),
 }: AppOptions = {}) {
   const app = express();
@@ -65,7 +62,9 @@ export function runApp({
 
   app.get(piletPath, getLatestPilets());
 
-  app.post(piletPath, checkAuth(apiKeys, 'publish-pilet'), publishPilet(rootUrl));
+  app.post(piletPath, checkAuth(), publishPilet(rootUrl));
+
+  app.post('/api/v1/authkey', saveAuthKey());
 
   return withGql(app).listen(port, () => {
     console.info(`Pilet feed fervice started on port ${port}.`);
@@ -73,10 +72,6 @@ export function runApp({
     console.info(`  URL for uploading pilets:`);
     console.info(``);
     console.info(`    ${rootUrl}${piletPath}`);
-    console.info(``);
-    console.info(`  API keys for publishing:`);
-    console.info(``);
-    console.info(`    ${apiKeys.join('\n    ')}`);
     console.info(``);
   });
 }

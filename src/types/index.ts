@@ -53,3 +53,9 @@ export interface PackageData {
     [name: string]: string;
   };
 }
+
+export interface AuthKey {
+  id?: string;
+  name?: string;
+  email?: string;
+}

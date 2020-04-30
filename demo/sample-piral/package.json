@@ -1,0 +1,58 @@
+{
+  "name": "sample-piral",
+  "private": true,
+  "version": "0.11.2",
+  "description": "Example project illustrating the use of the piral and piral-cli packages.",
+  "keywords": [
+    "portal",
+    "smapiot",
+    "sample",
+    "example",
+    "microfrontend",
+    "modules",
+    "spa"
+  ],
+  "author": "smapiot",
+  "homepage": "https://piral.io",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "app": "src/index.html",
+  "files": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smapiot/piral.git"
+  },
+  "bugs": {
+    "url": "https://github.com/smapiot/piral/issues"
+  },
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "piral": "^0.11.2",
+    "piral-auth": "^0.11.2",
+    "piral-search": "^0.11.2",
+    "reactstrap": "^8.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^16.8.2",
+    "@types/react-dom": "^16.8.0",
+    "@types/react-router": "^5.0.0",
+    "@types/react-router-dom": "latest",
+    "piral-cli": "^0.11.2",
+    "sass": "^1.17.0"
+  },
+  "pilets": {
+    "externals": [
+      "reactstrap"
+    ],
+    "files": [],
+    "scripts": {
+      "start": "pilet debug",
+      "upgrade-pilet": "pilet upgrade --force-overwrite yes"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "piral debug src/index.html",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  }
+}

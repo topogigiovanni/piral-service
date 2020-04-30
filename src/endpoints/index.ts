@@ -3,6 +3,7 @@ import { join, relative, sep } from 'path';
 import { lookup } from 'mime-types';
 import { latestPilets, storePilet } from '../pilets';
 import { getPilet } from '../db';
+import { saveKey } from '../auth';
 
 export const getFiles = (): RequestHandler => async (req, res) => {
   const { name, version, org, file } = req.params;
@@ -70,4 +71,16 @@ export const publishPilet = (rootUrl: string): RequestHandler => (req, res) => {
       message: 'Missing file upload.',
     });
   }
+};
+
+export const saveAuthKey = (): RequestHandler => async (req, res) => {
+  const { name, email } = req.body;
+
+  const { model, error } = await saveKey({ name, email });
+
+  return res.json({
+    valid: error !== null,
+    model,
+    error
+  });
 };

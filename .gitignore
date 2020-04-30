@@ -67,3 +67,5 @@ zeisslets
 yarn.lock
 
 static
+/.cache
+.cache
