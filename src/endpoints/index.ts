@@ -81,6 +81,6 @@ export const saveAuthKey = (): RequestHandler => async (req, res) => {
   return res.json({
     valid: error !== null,
     model,
-    error
+    error,
   });
 };

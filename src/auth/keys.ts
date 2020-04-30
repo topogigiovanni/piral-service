@@ -27,7 +27,7 @@ export async function getKeys() {
   }
 
   if (provider === 'mongo') {
-    const keys = await AuthKeyModel.find().select({id: 1}).exec();
+    const keys = await AuthKeyModel.find().select({ id: 1 }).exec();
     cachedKeys = keys.map((k: IAuthKey) => k.id);
     console.log('cachedKeys', cachedKeys);
 
@@ -49,8 +49,8 @@ export async function saveKey(authKey: AuthKey) {
     cachedKeys.push(authKey.id);
 
     return {
-      model: authKey
-    }
+      model: authKey,
+    };
   }
 
   try {
@@ -61,11 +61,11 @@ export async function saveKey(authKey: AuthKey) {
     cachedKeys.push(model._id);
 
     return {
-      model: model
+      model: model,
     };
-  } catch(err) {
+  } catch (err) {
     return {
-      error: err
+      error: err,
     };
   }
 }
