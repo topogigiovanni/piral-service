@@ -15,7 +15,7 @@ jobs:
     machine:
       enabled: true
     steps:
-      - run: |
+       - run: |
           sudo apt-get install sshpass
        - run:
           name: Deploy Over SSH
