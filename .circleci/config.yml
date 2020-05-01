@@ -17,13 +17,13 @@ jobs:
     # machine:
     #   enabled: true
     steps:
-       - run:
-          name: Get sshpass
-          command: sudo apt-get install sshpass
+       # - run:
+       #    name: Get sshpass
+       #    command: sudo apt-get install sshpass
        - run:
           name: Deploy Over SSH
           command: |
-           sshpass -p "$SSH_USER_PASS" ssh $SSH_USER@$SSH_HOST "cd /var/www/ && rm -rf $APP_FOLDER && git clone https://github.com/topogigiovanni/piral-service.git $APP_FOLDER && cd $APP_FOLDER && sh post_deployment.sh "
+            ssh $SSH_USER@$SSH_HOST "cd /var/www/ && rm -rf $APP_FOLDER && git clone https://github.com/topogigiovanni/piral-service.git $APP_FOLDER && cd $APP_FOLDER && sh post_deployment.sh "
 
 workflows:
   version: 2
