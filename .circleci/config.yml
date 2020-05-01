@@ -23,7 +23,7 @@ jobs:
        - run:
           name: Deploy Over SSH
           command: |
-            ssh $SSH_USER@$SSH_HOST "cd /var/www/ && rm -rf $APP_FOLDER && git clone https://github.com/topogigiovanni/piral-service.git $APP_FOLDER && cd $APP_FOLDER && sh post_deployment.sh "
+            ssh -oStrictHostKeyChecking=no -v $SSH_USER@$SSH_HOST "cd /var/www/ && rm -rf $APP_FOLDER && git clone https://github.com/topogigiovanni/piral-service.git $APP_FOLDER && cd $APP_FOLDER && sh post_deployment.sh "
 
 workflows:
   version: 2
