@@ -6,6 +6,8 @@ jobs:
     executor:
       name: node/default
     steps:
+      - run: |
+        apt-get install sshpass
       - checkout
       - node/with-cache:
           steps:
@@ -18,13 +20,13 @@ jobs:
        - run:
           name: Deploy Over SSH
           command: |
-            ssh $SSH_USER@$SSH_HOST "cd /var/www/ && rm -rf $APP_FOLDER && git clone https://github.com/topogigiovanni/piral-service.git $APP_FOLDER && cd $APP_FOLDER && sh post_deployment.sh "
+           sshpass -p "$SSH_USER_PASS" ssh $SSH_USER@$SSH_HOST "cd /var/www/ && rm -rf $APP_FOLDER && git clone https://github.com/topogigiovanni/piral-service.git $APP_FOLDER && cd $APP_FOLDER && sh post_deployment.sh "
 
 workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build-and-test
+      #- build-and-test
       - deploy:
           requires:
             - build-and-test # only deploy once build job has completed
