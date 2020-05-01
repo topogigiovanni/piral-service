@@ -8,11 +8,11 @@ jobs:
     steps:
       - run: |
           apt-get install sshpass
-      - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-            - run: npm test
+      # - checkout
+      # - node/with-cache:
+      #     steps:
+      #       - run: npm install
+      #       - run: npm test
   deploy:
     machine:
       enabled: true
