@@ -1,9 +1,9 @@
 #!/bin/bash
 echo "installing requirements…"
-npm install
+sudo npm install
 echo "building…"
-npm run build
+sudo npm run build
 echo "start server…"
-pm2 restart piral-service
+sudo pm2 restart piral-service
 echo "started server. ending SSH session.."
 exit
