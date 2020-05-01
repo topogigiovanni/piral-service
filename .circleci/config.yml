@@ -14,8 +14,8 @@ jobs:
   deploy:
     executor:
       name: node/default
-    machine:
-      enabled: true
+    # machine:
+    #   enabled: true
     steps:
        - run:
           name: Get sshpass
