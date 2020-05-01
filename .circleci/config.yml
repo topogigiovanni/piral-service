@@ -19,13 +19,15 @@ jobs:
           name: Deploy Over SSH
           command: |
             ssh $SSH_USER@$SSH_HOST "cd /var/www/ && rm -rf $APP_FOLDER && git clone https://github.com/topogigiovanni/piral-service.git $APP_FOLDER && cd $APP_FOLDER && sh post_deployment.sh "
+
 workflows:
-    build-and-test:
-      jobs:
-        - build-and-test
-        - deploy:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build-and-test
+      - deploy:
           requires:
-            - build # only deploy once build job has completed
+            - build-and-test # only deploy once build job has completed
           filters:
             branches:
               only: master # only deploy on the master branch
