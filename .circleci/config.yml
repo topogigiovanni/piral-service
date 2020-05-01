@@ -7,7 +7,7 @@ jobs:
       name: node/default
     steps:
       - run: |
-          apt-get install sshpass
+          sudo apt-get install sshpass
       # - checkout
       # - node/with-cache:
       #     steps:
