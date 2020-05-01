@@ -6,17 +6,17 @@ jobs:
     executor:
       name: node/default
     steps:
-      - run: |
-          sudo apt-get install sshpass
-      # - checkout
-      # - node/with-cache:
-      #     steps:
-      #       - run: npm install
-      #       - run: npm test
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: npm install
+            - run: npm test
   deploy:
     machine:
       enabled: true
     steps:
+      - run: |
+          sudo apt-get install sshpass
        - run:
           name: Deploy Over SSH
           command: |
@@ -26,10 +26,10 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build-and-test
+      # - build-and-test
       - deploy:
-          requires:
-            - build-and-test # only deploy once build job has completed
+          # requires:
+          #   - build-and-test # only deploy once build job has completed
           filters:
             branches:
               only: master # only deploy on the master branch
