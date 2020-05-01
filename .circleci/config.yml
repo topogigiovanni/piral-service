@@ -12,10 +12,10 @@ jobs:
             - run: npm install
             - run: npm test
   deploy:
-    executor:
-      name: node/default
-    # machine:
-    #   enabled: true
+    # executor:
+    #   name: node/default
+    machine:
+      enabled: true
     steps:
        # - run:
        #    name: Get sshpass
