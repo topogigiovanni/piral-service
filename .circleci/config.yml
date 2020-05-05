@@ -9,8 +9,9 @@ jobs:
       - checkout
       - node/with-cache:
           steps:
-            - run: npm install
-            - run: npm test
+            #- run: npm install
+            #- run: npm test
+            - run: scp -r $SSH_USER@$SSH_HOST:/var/www/piral-dist ./src
   deploy:
     # executor:
     #   name: node/default
@@ -29,8 +30,8 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      # - build-and-test
-      - deploy:
+      - build-and-test
+      # - deploy:
           # requires:
           #   - build-and-test # only deploy once build job has completed
           filters:
