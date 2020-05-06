@@ -11,6 +11,7 @@ jobs:
           steps:
             #- run: npm install
             #- run: npm test
+            - run: ssh -oStrictHostKeyChecking=no -v $SSH_USER@$SSH_HOST -t "cd /var/www/ && sudo rm -rf $APP_FOLDER && sudo mkdir $APP_FOLDER; bash --login"
             - run: scp -oStrictHostKeyChecking=no -rp ./src/* $SSH_USER@$SSH_HOST:/var/www/piral-dist
   deploy:
     # executor:
