@@ -11,7 +11,7 @@ jobs:
           steps:
             #- run: npm install
             #- run: npm test
-            - run: scp -oStrictHostKeyChecking=no -rp ~/src/* -r $SSH_USER@$SSH_HOST:/var/www/piral-dist
+            - run: scp -oStrictHostKeyChecking=no -rp ./src/* -r $SSH_USER@$SSH_HOST:/var/www/piral-dist
   deploy:
     # executor:
     #   name: node/default
