@@ -9,10 +9,11 @@ jobs:
       - checkout
       - node/with-cache:
           steps:
-            #- run: npm install
-            #- run: npm test
+            - run: npm install
+            - run: npm test
+            _ run: npm run build:production
             - run: ssh -oStrictHostKeyChecking=no -v $SSH_USER@$SSH_HOST -t "cd /var/www/ && sudo rm -rf $APP_FOLDER && sudo mkdir $APP_FOLDER && exit; bash --login"
-            - run: scp -oStrictHostKeyChecking=no -rp ./src/* $SSH_USER@$SSH_HOST:/var/www/piral-dist
+            - run: scp -oStrictHostKeyChecking=no -rp ./dist/* $SSH_USER@$SSH_HOST:/var/www/$APP_FOLDER
   deploy:
     # executor:
     #   name: node/default

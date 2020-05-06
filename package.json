@@ -16,6 +16,7 @@
     "lint:fix": "tslint --fix -c tslint.json 'src/**/*.ts'",
     "prettier": "prettier --config prettier.config.js --write 'src/**/*.ts'",
     "build": "tsc --project tsconfig.json",
+    "build:production": "SET=NODE_ENV npm run build",
     "serve": "pm2-runtime dist/index.js"
   },
   "engines": {
